@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import CryptocurrencySelector from './components/CryptocurrencySelector';
+import IntervalSelector from './components/IntervalSelector';
+import CandlestickChart from './components/CandlestickChart';
 import './App.css';
 
+const coins = ['ethusdt', 'bnbusdt', 'dotusdt'];
+const intervals = ['1m', '3m', '5m'];
+
 function App() {
+  const [selectedCoin, setSelectedCoin] = useState('ethusdt');
+  const [selectedInterval, setSelectedInterval] = useState('1m');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1 >Binance Market Data</h1>
+      <CryptocurrencySelector
+        coins={coins}
+        onSelectCoin={setSelectedCoin}
+      />
+      <IntervalSelector
+        intervals={intervals}
+        onSelectInterval={setSelectedInterval}
+      />
+      <CandlestickChart symbol={selectedCoin} interval={selectedInterval} />
     </div>
   );
 }
